@@ -1,0 +1,59 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: linear-gradient(90deg, #FFD700 0%, #FFC300 100%);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 0;
+}
+.logo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 0 0.5rem 0;
+}
+.logo h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  letter-spacing: 2px;
+}
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  width: 100%;
+  background: transparent;
+  padding: 0.7rem 0 0.7rem 0;
+}
+.nav :global(a), .nav-link {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.15rem;
+  padding: 0.3rem 1.2rem;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+.nav :global(a):hover, .nav-link:hover {
+  background: rgba(255,255,255,0.15);
+  color: #333;
+}
+.icons {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 1.5rem;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 0.5rem 2rem 0.5rem 0;
+}
+.icon {
+  cursor: pointer;
+  transition: color 0.2s;
+  color: #fff;
+}
+.icon:hover {
+  color: #333;
+}
