@@ -24,6 +24,7 @@ export default function Home() {
     <Box sx={{ minHeight: '100vh', width: '100vw', bgcolor: '#faf9f6', display: 'flex', flexDirection: 'column' }}>
       <Head>
         <title>Anil Jewellery</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />

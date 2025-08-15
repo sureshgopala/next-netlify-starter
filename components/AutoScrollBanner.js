@@ -26,7 +26,12 @@ export default function AutoScrollBanner() {
     <Box
       ref={scrollRef}
       sx={{
-        width: '100%',
+        width: '100vw', // Full viewport width
+        position: 'relative',
+        left: '50%',
+        right: '50%',
+        marginLeft: '-50vw',
+        marginRight: '-50vw',
         overflowX: 'hidden', // Hide horizontal scrollbar
         whiteSpace: 'nowrap',
         display: 'flex',
@@ -35,7 +40,7 @@ export default function AutoScrollBanner() {
         boxShadow: 2,
         mb: 3,
         p: 1,
-        minHeight: 180,
+        minHeight: { xs: 120, sm: 180 }, // Responsive minHeight
       }}
     >
       {images.map((src, idx) => (
@@ -45,8 +50,8 @@ export default function AutoScrollBanner() {
           src={src}
           alt={`Banner ${idx + 1}`}
           sx={{
-            height: { xs: 180, sm: 260, md: 320 },
-            width: '100vw',
+            height: { xs: 100, sm: 180, md: 320 }, // Responsive image height
+            width: { xs: '100vw', sm: '100vw', md: '100vw' }, // Responsive image width
             maxWidth: '100vw',
             objectFit: 'cover',
             borderRadius: 2,
