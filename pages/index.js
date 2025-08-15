@@ -29,7 +29,7 @@ export default function Home() {
       </Head>
       <Header />
       <Box sx={{ flex: 1, p: { xs: 2, sm: 4 }, width: '100%', maxWidth: 1200, mx: 'auto' }}>
-        <Typography variant="h4" sx={{ mt: 1, mb: 2, fontWeight: 700, color: '#bfa14a', textAlign: 'center', letterSpacing: 2, fontFamily: [
+        <Typography variant="h4" sx={{ mt: 1, mb: 2, fontWeight: 400, color: '#bfa14a', textAlign: 'center', letterSpacing: 2, fontFamily: [
           '-apple-system',
           'BlinkMacSystemFont',
           '"Segoe UI"',

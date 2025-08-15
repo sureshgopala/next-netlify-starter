@@ -1,67 +1,93 @@
 import Box from '@mui/material/Box';
-import { useEffect, useRef } from 'react';
+import IconButton from '@mui/material/IconButton';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useState, useEffect, useRef } from 'react';
 
 const images = ['/AutoScroll1.jpg', '/AutoScroll2.jpg', '/AutoScroll3.jpg'];
 
 export default function AutoScrollBanner() {
-  const scrollRef = useRef(null);
+  const [current, setCurrent] = useState(0);
+  const timeoutRef = useRef(null);
+  const AUTO_SCROLL_INTERVAL = 4000; // 4 seconds per image
 
+  const nextImage = () => {
+    setCurrent((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrent((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  // Auto-scroll logic
   useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    let scrollAmount = 0;
-    let direction = 1;
-    const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-    const interval = setInterval(() => {
-      if (!scrollContainer) return;
-      scrollAmount += direction * 2;
-      if (scrollAmount >= maxScroll || scrollAmount <= 0) {
-        direction *= -1;
-      }
-      scrollContainer.scrollTo({ left: scrollAmount, behavior: 'smooth' });
-    }, 30);
-    return () => clearInterval(interval);
-  }, []);
+    clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
+      nextImage();
+    }, AUTO_SCROLL_INTERVAL);
+    return () => clearTimeout(timeoutRef.current);
+  }, [current]);
 
   return (
     <Box
-      ref={scrollRef}
       sx={{
-        width: '100vw', // Full viewport width
+        width: '100vw',
         position: 'relative',
         left: '50%',
         right: '50%',
         marginLeft: '-50vw',
         marginRight: '-50vw',
-        overflowX: 'hidden', // Hide horizontal scrollbar
-        whiteSpace: 'nowrap',
+        overflow: 'hidden',
         display: 'flex',
-        bgcolor: '#fffbe6',
-        borderRadius: 2,
-        boxShadow: 2,
-        mb: 3,
-        p: 1,
-        minHeight: { xs: 120, sm: 180 }, // Responsive minHeight
+        alignItems: 'center',
+        justifyContent: 'center',
+        mb: 0,
+        p: 0,
+        minHeight: 0,
+        bgcolor: 'transparent',
+        borderRadius: 0,
+        boxShadow: 'none',
       }}
     >
-      {images.map((src, idx) => (
-        <Box
-          key={src}
-          component="img"
-          src={src}
-          alt={`Banner ${idx + 1}`}
-          sx={{
-            height: { xs: 100, sm: 180, md: 320 }, // Responsive image height
-            width: { xs: '100vw', sm: '100vw', md: '100vw' }, // Responsive image width
-            maxWidth: '100vw',
-            objectFit: 'cover',
-            borderRadius: 2,
-            mx: 0,
-            boxShadow: 1,
-            border: '2px solid #FFD700',
-            display: 'inline-block',
-          }}
-        />
-      ))}
+      <IconButton
+        aria-label="previous"
+        onClick={prevImage}
+        sx={{
+          position: 'absolute', left: 24, top: '50%', transform: 'translateY(-50%)', zIndex: 2,
+          bgcolor: 'transparent', border: 'none', boxShadow: 'none', p: 0,
+        }}
+      >
+        <ArrowBackIosNewIcon sx={{ color: '#bfa14a', fontSize: { xs: 40, sm: 56 }, opacity: 0.8 }} />
+      </IconButton>
+      <Box
+        component="img"
+        src={images[current]}
+        alt={`Banner ${current + 1}`}
+        sx={{
+          height: { xs: 'calc(100vw * 0.35)', sm: 'calc(100vw * 0.35)', md: 'calc(100vw * 0.35)' },
+          width: { xs: 'calc(100vw - 10rem)', sm: 'calc(100vw - 10rem)', md: 'calc(100vw - 10rem)' },
+          minWidth: { xs: 'calc(100vw - 10rem)', sm: 'calc(100vw - 10rem)', md: 'calc(100vw - 10rem)' },
+          maxWidth: { xs: 'calc(100vw - 10rem)', sm: 'calc(100vw - 10rem)', md: 'calc(100vw - 10rem)' },
+          objectFit: 'contain',
+          borderRadius: 0,
+          boxShadow: 'none',
+          border: 'none',
+          display: 'block',
+          mt: -2,
+          mx: '5rem',
+          background: 'transparent',
+        }}
+      />
+      <IconButton
+        aria-label="next"
+        onClick={nextImage}
+        sx={{
+          position: 'absolute', right: 24, top: '50%', transform: 'translateY(-50%)', zIndex: 2,
+          bgcolor: 'transparent', border: 'none', boxShadow: 'none', p: 0,
+        }}
+      >
+        <ArrowForwardIosIcon sx={{ color: '#bfa14a', fontSize: { xs: 40, sm: 56 }, opacity: 0.8 }} />
+      </IconButton>
     </Box>
   );
 }
